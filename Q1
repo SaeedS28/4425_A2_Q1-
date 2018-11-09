@@ -1,0 +1,22 @@
+gen_seq <- function() {
+	x=sample(c('a','c','t','g'), size = 1000000, replace = TRUE)
+	rlength = sample(500:10000,1)
+	rseq = seq(100, (100 + rlength), by = 3)
+	x[rseq] = 	sample(c('a','c','t','g'),size = rlength, prob = c(0.5,0.25,0.15,0.1), replace = TRUE)
+	i = 0
+	last = 100 + rlength
+	total = rlength
+	while (total != 100000) {
+ 		rlength = sample(500:10000,1)
+		rspacing = sample(100:2000,1)
+		if (total + rlength > 100000) {
+			rlength = 100000 - total
+		}
+		rseq = seq((last + rspacing), (last + rspacing + rlength),by = 3)
+		x[rseq] = 	sample(c('a','c','t','g'),size = rlength, prob = c(0.5,0.25,0.15,0.1), replace = TRUE)
+		last = last + rspacing + rlength
+		total = total + rlength	
+	i = i + 1
+	}
+	return(x)
+}
